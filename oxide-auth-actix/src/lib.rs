@@ -357,7 +357,6 @@ where
 impl FromRequest for OAuthRequest {
     type Error = WebError;
     type Future = LocalBoxFuture<'static, Result<Self, Self::Error>>;
-    type Config = ();
 
     fn from_request(req: &HttpRequest, payload: &mut Payload) -> Self::Future {
         Self::new(req.clone(), payload.take()).boxed_local()
@@ -367,7 +366,6 @@ impl FromRequest for OAuthRequest {
 impl FromRequest for OAuthResource {
     type Error = WebError;
     type Future = Ready<Result<Self, Self::Error>>;
-    type Config = ();
 
     fn from_request(req: &HttpRequest, _: &mut Payload) -> Self::Future {
         future::ready(Self::new(req))
