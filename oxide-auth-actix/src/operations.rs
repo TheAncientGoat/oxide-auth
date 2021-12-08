@@ -4,7 +4,10 @@ use oxide_auth::{
     primitives::grant::Grant,
 };
 
+use actix::prelude::*;
 /// Authorization-related operations
+#[derive(Message)]
+#[rtype(result = "OAuthRequest")]
 pub struct Authorize(pub OAuthRequest);
 
 impl OAuthOperation for Authorize {
@@ -23,6 +26,8 @@ impl OAuthOperation for Authorize {
 }
 
 /// Token-related operations
+#[derive(Message)]
+#[rtype(result = "OAuthRequest")]
 pub struct Token(pub OAuthRequest);
 
 impl OAuthOperation for Token {
@@ -41,6 +46,8 @@ impl OAuthOperation for Token {
 }
 
 /// Refresh-related operations
+#[derive(Message)]
+#[rtype(result = "OAuthRequest")]
 pub struct Refresh(pub OAuthRequest);
 
 impl OAuthOperation for Refresh {
@@ -59,6 +66,8 @@ impl OAuthOperation for Refresh {
 }
 
 /// Resource-related operations
+#[derive(Message)]
+#[rtype(result = "OAuthRequest")]
 pub struct Resource(pub OAuthRequest);
 
 impl OAuthOperation for Resource {
