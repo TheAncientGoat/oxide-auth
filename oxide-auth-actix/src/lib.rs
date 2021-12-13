@@ -4,6 +4,7 @@
 //! `AsActor<_>` to create an actor implementing endpoint functionality via messages.
 #![warn(missing_docs)]
 
+use actix_web::body::BoxBody;
 use actix::{MailboxError, Message};
 use actix_web::{
     HttpResponseBuilder,
@@ -373,7 +374,7 @@ impl FromRequest for OAuthResource {
 }
 
 impl Responder for OAuthResponse {
-    fn respond_to(self, _: &HttpRequest) -> HttpResponse {
+    fn respond_to(self, _: &HttpRequest) -> actix_web::HttpResponse<BoxBody> {
         let mut builder = HttpResponseBuilder::new(self.status);
         for (k, v) in self.headers.into_iter() {
             builder.insert_header((k, v.to_owned()));
@@ -385,6 +386,7 @@ impl Responder for OAuthResponse {
             builder.finish()
         }
     }
+    type Body = BoxBody;
 }
 
 impl From<OAuthResource> for OAuthRequest {
